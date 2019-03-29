@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 
 namespace ConsoleApp1
@@ -10,19 +6,15 @@ namespace ConsoleApp1
     public class UserDto
     {
         public string FirstName { get; set; }
-
         public string LastName { get; set; }
-
         public string Email { get; set; }
     }
 
     public class User
     {
         public string FullName { get; set; }
-
         public string Email { get; set; }
     }
-
 
     internal class Program
     {
@@ -40,11 +32,21 @@ namespace ConsoleApp1
                                         .ForMember("Email",
                                                    opt => opt.MapFrom(src => src.Email)));
 
-
-
-            User user = Mapper.Map<UserDto, User>(userDto);
-
+            var user = Mapper.Map<UserDto, User>(userDto);
             Console.WriteLine($"{user.FullName} : {user.Email}");
+
+            Mapper.Reset();
+
+            Mapper.Initialize(cfg => cfg.CreateMap<User, UserDto>()
+                                        .ForMember("FirstName",
+                                                   opt => opt.MapFrom(c => c.FullName.Split(' ')[0]))
+                                        .ForMember("LastName",
+                                                   opt => opt.MapFrom(c => c.FullName.Split(' ')[1]))
+                                        .ForMember("Email",
+                                                   opt => opt.MapFrom(src => src.Email)));
+
+            var customer = Mapper.Map<User, UserDto>(user);
+            Console.WriteLine($"{customer.FirstName} {customer.LastName} : {customer.Email}");
         }
     }
 }
