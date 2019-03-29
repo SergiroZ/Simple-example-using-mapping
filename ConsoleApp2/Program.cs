@@ -40,8 +40,8 @@ namespace ConsoleApp2
             };
 
             var destination = iMapper.Map<AuthorModel, AuthorDTO>(source);
-            Console.WriteLine("Author Name: " + destination.FirstName + " " +
-                              destination.LastName);
+            Console.WriteLine($"Author Name: {destination.FirstName} " +
+                              $"{destination.LastName}; {destination.Address}");
         }
     }
 }
