@@ -39,9 +39,15 @@ namespace ConsoleApp1
 
             Mapper.Initialize(cfg => cfg.CreateMap<User, UserDto>()
                                         .ForMember("FirstName",
-                                                   opt => opt.MapFrom(c => c.FullName.Split(' ')[0]))
+                                                   opt =>
+                                                       opt.MapFrom(c =>
+                                                                       c.FullName
+                                                                        .Split(' ')[0]))
                                         .ForMember("LastName",
-                                                   opt => opt.MapFrom(c => c.FullName.Split(' ')[1]))
+                                                   opt =>
+                                                       opt.MapFrom(c =>
+                                                                       c.FullName
+                                                                        .Split(' ')[1]))
                                         .ForMember("Email",
                                                    opt => opt.MapFrom(src => src.Email)));
 
