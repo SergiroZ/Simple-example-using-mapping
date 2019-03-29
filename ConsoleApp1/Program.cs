@@ -28,21 +28,23 @@ namespace ConsoleApp1
     {
         private static void Main()
         {
+            var userDto = new UserDto
+                {FirstName = "Alex", LastName = "Koh", Email = "alex@gmail.com"};
+
 
             Mapper.Initialize(cfg => cfg.CreateMap<UserDto, User>()
-                                        .ForMember("Name",
+                                        .ForMember("FullName",
                                                    opt => opt.MapFrom(c => c.FirstName +
                                                                            " " + c
                                                                                .LastName))
                                         .ForMember("Email",
                                                    opt => opt.MapFrom(src => src.Email)));
 
-            var userDto = new UserDto
-                {FirstName = "Alex", LastName = "Koh", Email = "alex@gmail.com"};
+
 
             User user = Mapper.Map<UserDto, User>(userDto);
 
-            Console.WriteLine($"{user.FullName}+: {user.Email}");
+            Console.WriteLine($"{user.FullName} : {user.Email}");
         }
     }
 }
